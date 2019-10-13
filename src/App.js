@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+
 import ListingPage from './pages/ListingPage'
-import PokemonList from './components/PokemonList'
+import PokemonDetails from './components/PokemonDetails'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 class App extends Component {
@@ -12,7 +16,12 @@ class App extends Component {
     render(){
         return (
             <div className="App">
-                <ListingPage />
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={ListingPage} />
+                        <Route exact path="/pokemon/:index" component={PokemonDetails}/>
+                    </Switch>
+                </Router>
             </div>
         )
     }

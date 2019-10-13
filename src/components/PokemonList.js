@@ -1,6 +1,10 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Container from './PokemonContainer'
 import axios from 'axios'
+import {pokemonList} from '../utils/ApiCall'
+
+import loader from '../css/images/pokeball.gif'
+import '../css/loader.css'
 
 
 class PokemonList extends Component {
@@ -12,28 +16,43 @@ class PokemonList extends Component {
         };
     }
 
-
     async componentDidMount(){
+        this.setState({
+            isLoading: true
+        })
         const API = 'https://pokeapi.co/api/v2/pokemon?limit=100'
 
-        const response = await axios.get(API);
-        this.setState({pokemon: response.data['results']})
-        console.log(response.data['results'])
+        try{
+            const response = await axios.get(API);
+            this.setState({pokemon: response.data['results'], isLoading: false})
+            console.log(response.data['results'])
+        }
+        catch(error){
+            this.setState({
+                isLoading: false,
+                error: error.message
+            })
+            throw error
+        }
     }
 
     render(){
         return (
-            <div>
-                <h1>Pokemon</h1>
-                <p>{this.state.pokemon.map((pokemon, i) => (
-                    <Container
-                    key={i}
-                    name={pokemon.name}
-                    sprites={pokemon.url}
-                    />
-                    ))}
-                </p>
-            </div>
+            <Fragment>
+                {!this.state.isLoading ?
+                    <div className="row">
+                        {this.state.pokemon.map((pokemon, i) => (
+                                <Container
+                                    key={i}
+                                    {...pokemon}
+                                    pokemonUrl={pokemon.url}/>
+                                )
+                            )
+                        }
+                    </div>
+                    : <img className='loader' src={loader}/>
+                }
+            </Fragment>
         )
     }
 }
