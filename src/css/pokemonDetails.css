@@ -5,3 +5,24 @@
 .row{
     margin-bottom: 20px;
 }
+
+.description p {
+    margin: 0;
+}
+
+.container-stats{
+    width: 100%;
+    background-color: #ddd;
+}
+
+.stats{
+    text-align: right;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    background-color: #2196F3;
+}
+
+.stats span {
+    margin-right: 10px;
+}

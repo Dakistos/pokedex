@@ -86,6 +86,12 @@ class PokemonDetails extends Component {
     }
 
     render () {
+        const HP = (this.state.stats.hp / 255) * 100;
+        const Att = (this.state.stats.attack / 190) * 100;
+        const Def = (this.state.stats.defense / 230) * 100;
+        const SA = (this.state.stats.specialAttack / 194) * 100;
+        const SD = (this.state.stats.specialDefense / 230) * 100;
+        const Speed = (this.state.stats.speed / 180) * 100;
         return (
             <div className='container'>
                 <div className="row">
@@ -111,7 +117,7 @@ class PokemonDetails extends Component {
                             </div>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 description">
                                         <p>Vie</p>
                                         <p>Vitesse</p>
                                         <p>Défense</p>
@@ -120,12 +126,24 @@ class PokemonDetails extends Component {
                                         <p>Défense Spéciale</p>
                                     </div>
                                     <div className="col-md-6">
-                                        <p>{this.state.stats.hp}</p>
-                                        <p>{this.state.stats.speed}</p>
-                                        <p>{this.state.stats.defense}</p>
-                                        <p>{this.state.stats.attack}</p>
-                                        <p>{this.state.stats.specialAttack}</p>
-                                        <p>{this.state.stats.specialDefense}</p>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${HP}%`}}></p>
+                                        </div>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${Att}%`}}></p>
+                                        </div>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${Def}%`}}></p>
+                                        </div>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${SA}%`}}></p>
+                                        </div>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${SD}%`}}></p>
+                                        </div>
+                                        <div className="container-stats">
+                                            <p className="stats" style={{width: `${Speed}%`}}></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
