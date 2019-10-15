@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import Container from './PokemonContainer'
+import SearchBar from '../pages/Navbar/SearchBar'
 import axios from 'axios'
 import {pokemonList} from '../utils/ApiCall'
-
 import loader from '../css/images/pokeball.gif'
 import '../css/loader.css'
 
@@ -24,8 +24,10 @@ class PokemonList extends Component {
 
         try{
             const response = await axios.get(API);
-            this.setState({pokemon: response.data['results'], isLoading: false})
-            console.log(response.data['results'])
+            this.setState({pokemon: response.data['results'],
+                isLoading: false
+            })
+            //console.log(response.data['results'])
         }
         catch(error){
             this.setState({
@@ -37,6 +39,7 @@ class PokemonList extends Component {
     }
 
     render(){
+        const pokemon = this.props.pokemon
         return (
             <Fragment>
                 {!this.state.isLoading ?

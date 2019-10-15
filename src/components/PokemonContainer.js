@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {Link} from 'react-router-dom'
-
-import loader from '../css/images/pokeball.gif'
+import '../css/List.css'
 
 class PokemonContainer extends Component {
     state = {
@@ -20,19 +19,20 @@ class PokemonContainer extends Component {
 
     render(){
         return (
-            <div className="col-md-4 col-sm-6">
-                <Link to={`pokemon/${this.state.name}`}>
-                    <div className='card'>
-                        <div className="card-header">
-                            <h2>{this.state.name}</h2>
+            <Fragment>
+                <div className="col-md-4 col-sm-6">
+                    <Link to={`pokemon/${this.state.name}`}>
+                        <div className='card'>
+                            <div className="card-header">
+                                <h2 className="pokemon-name">{this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}</h2>
+                            </div>
+                            <div className="card-body">
+                                <img src={this.state.img}/>
+                            </div>
                         </div>
-                        <div className="card-body">
-                            <img src={this.state.img}/>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-
+                    </Link>
+                </div>
+            </Fragment>
         )
     }
 }

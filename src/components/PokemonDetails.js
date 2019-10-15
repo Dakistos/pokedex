@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import '../css/pokemonDetails.css'
+
+import TYPE_COLORS from '../utils/TypeColor'
 
 class PokemonDetails extends Component {
     state = {
@@ -17,13 +20,12 @@ class PokemonDetails extends Component {
           speed: '',
           specialAttack: '',
           specialDefense: ''
-        }
+      },
+        typeColor: ''
     }
 
     async componentDidMount(){
-        const {index} = this.props.match.params
-        const url = `https://pokeapi.co/api/v2/pokemon/${index}`
-        const resp = await axios.get(url)
+        const resp = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.index}`)
 
         const name = resp.data.name
         const img = resp.data.sprites.front_default
@@ -68,8 +70,9 @@ class PokemonDetails extends Component {
           }
         });
 
+        const typeColor = `${TYPE_COLORS[type[type.length - 1]]}`;
 
-        this.setState({name, img, abilities, taille, poids, type,
+        this.setState({name, img, abilities, taille, poids, type, typeColor,
             stats : {
               hp,
               attack,
@@ -83,18 +86,51 @@ class PokemonDetails extends Component {
 
     render () {
         return (
-            <div>
-                <h1>{this.state.name}</h1>
-                <img src={this.state.img} />
-                <p>Capacités : {this.state.abilities}</p>
-                <p>Types : {this.state.type}</p>
-                <p>Taille : {this.state.taille} - Poids : {this.state.poids}</p>
-                <p>Vie : {this.state.stats.hp}</p>
-                <p>Vitesse : {this.state.stats.speed}</p>
-                <p>Défense : {this.state.stats.defense}</p>
-                <p>Attaque : {this.state.stats.attack}</p>
-                <p>Attaque Spéciale : {this.state.stats.specialAttack}</p>
-                <p>Défense Spéciale : {this.state.stats.specialDefense}</p>
+            <div className='container'>
+                <div className="row">
+                    <div className="col-md">
+                        <h1>{this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1)}</h1>
+                        <img src={this.state.img} />
+                        <p>Taille : {this.state.taille} - Poids : {this.state.poids}</p>
+                        <p>Capacités : {this.state.abilities}</p>
+                        {this.state.type.map(type => (
+                                <span key={type} className='badge'
+                                    style={{backgroundColor: `#${TYPE_COLORS[type]}`, color: 'white'}}>
+                                    {type.toUpperCase()}
+                                </span>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md">
+                        <div className="card">
+                            <div className="card-header">
+                                <h3>Statistiques</h3>
+                            </div>
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <p>Vie</p>
+                                        <p>Vitesse</p>
+                                        <p>Défense</p>
+                                        <p>Attaque</p>
+                                        <p>Attaque Spéciale</p>
+                                        <p>Défense Spéciale</p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <p>{this.state.stats.hp}</p>
+                                        <p>{this.state.stats.speed}</p>
+                                        <p>{this.state.stats.defense}</p>
+                                        <p>{this.state.stats.attack}</p>
+                                        <p>{this.state.stats.specialAttack}</p>
+                                        <p>{this.state.stats.specialDefense}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
