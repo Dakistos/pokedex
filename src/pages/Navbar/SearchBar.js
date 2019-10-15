@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PokemonDetails from '../../components/PokemonDetails'
 
 class SearchBar extends Component {
     render(){

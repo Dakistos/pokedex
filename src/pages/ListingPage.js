@@ -13,14 +13,6 @@ class ListingPage extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    async componentDidMount(){
-        const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150');
-        const data = res.data['results'];
-        this.setState({
-            newPokemon: data
-        })
-    }
-
     handleChange = (e) => {
         this.setState({
             input: e.currentTarget.value,
@@ -32,7 +24,7 @@ class ListingPage extends Component {
         return (
             <div className="container">
                 <SearchBar handleChange={this.handleChange} value={this.state.input}/>
-                <PokemonList newPokemon={this.state.newPokemon}/>
+                <PokemonList newPokemon={this.props.newPokemon}/>
             </div>
         )
     }
