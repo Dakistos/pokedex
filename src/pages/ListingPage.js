@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import PokemonList from '../components/PokemonList'
 import SearchBar from '../pages/Navbar/SearchBar'
 
@@ -24,7 +23,7 @@ class ListingPage extends Component {
         return (
             <div className="container">
                 <SearchBar handleChange={this.handleChange} value={this.state.input}/>
-                <PokemonList newPokemon={this.props.newPokemon}/>
+                <PokemonList newPokemon={this.state.newPokemon}/>
             </div>
         )
     }

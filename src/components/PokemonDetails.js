@@ -33,9 +33,10 @@ class PokemonDetails extends Component {
         const poids = resp.data.weight
         const type = resp.data.types.map(types => types.type.name)
 
-        const abilities = resp.data.abilities
-          .map(ability => {
-            return ability.ability.name
+        const abilities = resp.data.moves
+          .slice(0,3)
+          .map(move => {
+            return move.move.name
               .toLowerCase()
               .split('-')
               .map(s => s.charAt(0).toUpperCase() + s.substring(1))
